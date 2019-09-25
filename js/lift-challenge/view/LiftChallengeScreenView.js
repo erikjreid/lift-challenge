@@ -7,9 +7,10 @@ define( require => {
   'use strict';
 
   // modules
+  const liftChallenge = require( 'LIFT_CHALLENGE/liftChallenge' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
-  const liftChallenge = require( 'LIFT_CHALLENGE/liftChallenge' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   class LiftChallengeScreenView extends ScreenView {
 
@@ -31,6 +32,21 @@ define( require => {
         tandem: tandem.createTandem( 'resetAllButton' )
       } );
       this.addChild( resetAllButton );
+
+
+      const title = new Text( 'lift challenge', {
+        fontSize: 150,
+        center: this.layoutBounds.center
+      } );
+      this.addChild( title )
+
+
+      const start = new Text( 'click to start', {
+        y: title.bottom + 50,
+        centerX: this.layoutBounds.centerX, fontSize: 20
+
+      } )
+      this.addChild( start )
     }
 
     // @public
