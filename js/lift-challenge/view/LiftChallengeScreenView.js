@@ -38,15 +38,15 @@ define( require => {
         fontSize: 150,
         center: this.layoutBounds.center
       } );
-      this.addChild( title )
+      this.addChild( title );
 
 
       const start = new Text( 'click to start', {
         y: title.bottom + 50,
         centerX: this.layoutBounds.centerX, fontSize: 20
 
-      } )
-      this.addChild( start )
+      } );
+      this.addChild( start );
     }
 
     // @public
