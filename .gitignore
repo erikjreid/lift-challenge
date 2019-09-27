@@ -1,4 +1,5 @@
 .idea/
+build/
 node_modules/
 *.iml
 .DS_Store
@@ -6,3 +7,4 @@ node_modules/
 *.sublime-project
 *.sublime-workspace
 .eslintcache
+build
