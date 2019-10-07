@@ -7,11 +7,14 @@ define( require => {
   'use strict';
 
   // modules
+  const Image = require( 'SCENERY/nodes/Image' );
   const liftChallenge = require( 'LIFT_CHALLENGE/liftChallenge' );
   const Plane = require( 'SCENERY/nodes/Plane' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Text = require( 'SCENERY/nodes/Text' );
+
+  const strongman1 = require( 'image!LIFT_CHALLENGE/strong-man1.png' )
 
   class LiftChallengeScreenView extends ScreenView {
 
@@ -65,6 +68,9 @@ define( require => {
 
         }
       } );
+
+      const strogmanimage = new Image( strongman1 )
+      this.addChild( strogmanimage );
 
 
     }
