@@ -69,7 +69,10 @@ define( require => {
         }
       } );
 
-      const strogmanimage = new Image( strongman1 )
+      const strogmanimage = new Image( strongman1, {
+        maxWidth: 250,
+        x: 750, y: 425
+      } );
       this.addChild( strogmanimage );
 
 
