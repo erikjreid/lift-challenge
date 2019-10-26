@@ -15,6 +15,7 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
 
   const strongman1 = require( 'image!LIFT_CHALLENGE/strong-man1.png' )
+  const weakManGoodImageData = require( 'image!LIFT_CHALLENGE/weakManGood.jpg' )
 
   class LiftChallengeScreenView extends ScreenView {
 
@@ -75,7 +76,9 @@ define( require => {
       } );
       this.addChild( strogmanimage );
 
+      const weakmangood = new Image( weakManGoodImageData, { maxWidth: 100, x: 80, y: 425 } );
 
+      this.addChild( weakmangood );
     }
 
     // @public
