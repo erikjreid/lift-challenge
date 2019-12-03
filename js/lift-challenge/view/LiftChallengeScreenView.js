@@ -16,7 +16,7 @@ define( require => {
 
   const strongman1 = require( 'image!LIFT_CHALLENGE/strong-man1.png' )
   const weakManGoodImageData = require( 'image!LIFT_CHALLENGE/weakManGood.jpg' )
-
+  const backroundEarthImage = require( 'image!LIFT_CHALLENGE/backround-earth.jpeg' )
   class LiftChallengeScreenView extends ScreenView {
 
     /**
@@ -53,7 +53,22 @@ define( require => {
 
       } );
       this.addChild( start );
+      const strogmanimage = new Image( strongman1, {
+        maxWidth: 250,
+        x: 750, y: 425
+      } );
+      this.addChild( strogmanimage );
 
+      const earthImage = new Image( backroundEarthImage, {
+        maxWidth: 5000,
+        x: 1000, y: 1000
+      } );
+      this.addChild( earthImage );
+
+
+      const weakmangood = new Image( weakManGoodImageData, { maxWidth: 100, x: 80, y: 425 } );
+
+      this.addChild( weakmangood );
       var isShowingTitle = true;
       backround.addInputListener( {
         down: () => {
@@ -62,6 +77,8 @@ define( require => {
           if ( isShowingTitle ) {
             this.removeChild( start );
             this.removeChild( title );
+            this.removeChild( strogmanimage )
+            this.removeChild( weakmangood )
           }
 
           isShowingTitle = false;
@@ -70,15 +87,7 @@ define( require => {
         }
       } );
 
-      const strogmanimage = new Image( strongman1, {
-        maxWidth: 250,
-        x: 750, y: 425
-      } );
-      this.addChild( strogmanimage );
 
-      const weakmangood = new Image( weakManGoodImageData, { maxWidth: 100, x: 80, y: 425 } );
-
-      this.addChild( weakmangood );
     }
 
     // @public
