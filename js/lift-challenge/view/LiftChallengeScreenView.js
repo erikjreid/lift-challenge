@@ -60,8 +60,9 @@ define( require => {
       this.addChild( strogmanimage );
 
       const earthImage = new Image( backroundEarthImage, {
-        maxWidth: 5000,
-        x: 1000, y: 1000
+        scale: 1.3,
+        center: this.layoutBounds.center,
+        visible: false
       } );
       this.addChild( earthImage );
 
@@ -79,6 +80,7 @@ define( require => {
             this.removeChild( title );
             this.removeChild( strogmanimage )
             this.removeChild( weakmangood )
+            earthImage.visible = true
           }
 
           isShowingTitle = false;
