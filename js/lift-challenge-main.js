@@ -34,7 +34,7 @@ define( require => {
   // until the images are fully loaded, see https://github.com/phetsims/coulombs-law/issues/70
   SimLauncher.launch( () => {
     const sim = new Sim( liftChallengeTitleString, [
-      new LiftChallengeScreen( Tandem.rootTandem.createTandem( 'liftChallengeScreen' ) )
+      new LiftChallengeScreen( Tandem.ROOT.createTandem( 'liftChallengeScreen' ) )
     ], simOptions );
     sim.start();
   } );
