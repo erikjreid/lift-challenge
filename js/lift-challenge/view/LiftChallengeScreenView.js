@@ -10,13 +10,16 @@ define( require => {
   const Image = require( 'SCENERY/nodes/Image' );
   const liftChallenge = require( 'LIFT_CHALLENGE/liftChallenge' );
   const Plane = require( 'SCENERY/nodes/Plane' );
+  const Property = require( 'AXON/Property' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Text = require( 'SCENERY/nodes/Text' );
 
   const strongman1 = require( 'image!LIFT_CHALLENGE/strong-man1.png' )
   const weakManGoodImageData = require( 'image!LIFT_CHALLENGE/weakManGood.jpg' )
   const backroundEarthImage = require( 'image!LIFT_CHALLENGE/backround-earth.jpeg' )
+
   class LiftChallengeScreenView extends ScreenView {
 
     /**
@@ -37,7 +40,6 @@ define( require => {
         bottom: this.layoutBounds.maxY - 10,
         tandem: tandem.createTandem( 'resetAllButton' )
       } );
-
 
 
       const title = new Text( 'lift challenge', {
@@ -80,7 +82,25 @@ define( require => {
             this.removeChild( title );
             this.removeChild( strogmanimage )
             this.removeChild( weakmangood )
-            earthImage.visible = true
+            earthImage.visible = true;
+
+            const gravityAreaProperty = new Property( 'earth' );
+            const gravityAreasRadioButtonGroup = new RadioButtonGroup( gravityAreaProperty, [
+              { value: 'jupiter', node: new Text( 'jupiter' ) },
+              { value: 'earth', node: new Text( 'earth' ) },
+              { value: 'moon', node: new Text( 'moon' ) },
+              { value: 'space', node: new Text( 'space' ) },
+              { value: '100 pound weight', node: new Text( '100 pound weight' ) },
+              { value: '50 pound weight', node: new Text( '50 pound weight' ) },
+              { value: '25 pound weight', node: new Text( '25 pound weight' ) },
+              { value: '10 pound weight', node: new Text( '10 pound weight' ) },
+              { value: 'strong man', node: new Text( 'strong man' ) },
+              { value: 'averige man', node: new Text( 'avrege man' ) },
+              { value: 'weak man', node: new Text( 'weak man' ) },
+
+            ] );
+            this.addChild( gravityAreasRadioButtonGroup )
+
           }
 
           isShowingTitle = false;
