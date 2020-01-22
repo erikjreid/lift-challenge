@@ -9,16 +9,18 @@ define( require => {
   // modules
   const Image = require( 'SCENERY/nodes/Image' );
   const liftChallenge = require( 'LIFT_CHALLENGE/liftChallenge' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const Plane = require( 'SCENERY/nodes/Plane' );
   const Property = require( 'AXON/Property' );
-  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Text = require( 'SCENERY/nodes/Text' );
 
+  const backroundEarthImage = require( 'image!LIFT_CHALLENGE/backround-earth.jpeg' )
+  const moon = require( 'image!LIFT_CHALLENGE/moon.jpg' )
   const strongman1 = require( 'image!LIFT_CHALLENGE/strong-man1.png' )
   const weakManGoodImageData = require( 'image!LIFT_CHALLENGE/weakManGood.jpg' )
-  const backroundEarthImage = require( 'image!LIFT_CHALLENGE/backround-earth.jpeg' )
 
   class LiftChallengeScreenView extends ScreenView {
 
@@ -55,19 +57,24 @@ define( require => {
 
       } );
       this.addChild( start );
-      const strogmanimage = new Image( strongman1, {
+      const strongManImage = new Image( strongman1, {
         maxWidth: 250,
         x: 750, y: 425
       } );
-      this.addChild( strogmanimage );
+      this.addChild( strongManImage );
+
+      const environmentContainer = new Node();
+      const guysContainer = new Node();
+      guysContainer.addChild( strongManImage );
 
       const earthImage = new Image( backroundEarthImage, {
         scale: 1.3,
         center: this.layoutBounds.center,
         visible: false
       } );
-      this.addChild( earthImage );
-
+      environmentContainer.addChild( earthImage );
+      this.addChild( environmentContainer );
+      this.addChild( guysContainer );
 
       const weakmangood = new Image( weakManGoodImageData, { maxWidth: 100, x: 80, y: 425 } );
 
@@ -80,7 +87,7 @@ define( require => {
           if ( isShowingTitle ) {
             this.removeChild( start );
             this.removeChild( title );
-            this.removeChild( strogmanimage )
+            this.removeChild( strongManImage )
             this.removeChild( weakmangood )
             earthImage.visible = true;
 
@@ -90,16 +97,38 @@ define( require => {
               { value: 'earth', node: new Text( 'earth' ) },
               { value: 'moon', node: new Text( 'moon' ) },
               { value: 'space', node: new Text( 'space' ) },
-              { value: '100 pound weight', node: new Text( '100 pound weight' ) },
-              { value: '50 pound weight', node: new Text( '50 pound weight' ) },
-              { value: '25 pound weight', node: new Text( '25 pound weight' ) },
-              { value: '10 pound weight', node: new Text( '10 pound weight' ) },
-              { value: 'strong man', node: new Text( 'strong man' ) },
-              { value: 'averige man', node: new Text( 'avrege man' ) },
-              { value: 'weak man', node: new Text( 'weak man' ) },
-
             ] );
-            this.addChild( gravityAreasRadioButtonGroup )
+            this.addChild( gravityAreasRadioButtonGroup );
+
+            gravityAreaProperty.link( gravityArea => {
+
+              if ( gravityArea === 'earth' ) {
+                earthImage.visible = true;
+                moon2.visible = false;
+              }
+              else if ( gravityArea === 'moon' ) {
+                moon2.visible = true;
+                earthImage.visible = false;
+              }
+            } );
+
+            const selectedGuyProperty = new Property( 'strongMan' );
+            const selectedGuyRadioButtonGroup = new RadioButtonGroup( selectedGuyProperty, [
+              { value: 'strongMan', node: new Text( 'Strong Man' ) },
+              { value: 'weakMan', node: new Text( 'Weak Man' ) }
+            ], {
+              top: gravityAreasRadioButtonGroup.bottom + 20,
+              baseColor: 'red'
+            } );
+            this.addChild( selectedGuyRadioButtonGroup );
+
+            // { value: '100 pound weight', node: new Text( '100 pound weight' ) },
+            // { value: '50 pound weight', node: new Text( '50 pound weight' ) },
+            // { value: '25 pound weight', node: new Text( '25 pound weight' ) },
+            // { value: '10 pound weight', node: new Text( '10 pound weight' ) },
+            // { value: 'strong man', node: new Text( 'strong man' ) },
+            // { value: 'averige man', node: new Text( 'avrege man' ) },
+            // { value: 'weak man', node: new Text( 'weak man' ) },
 
           }
 
@@ -109,6 +138,13 @@ define( require => {
         }
       } );
 
+
+      const moon2 = new Image( moon, {
+        scale: 1.3,
+        center: this.layoutBounds.center,
+        visible: false
+      } );
+      environmentContainer.addChild( moon2 );
 
     }
 
