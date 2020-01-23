@@ -64,7 +64,7 @@ define( require => {
       this.addChild( strongManImage );
 
       const environmentContainer = new Node();
-      const guysContainer = new Node();
+      const guysContainer = new Node( { visible: false } );
       guysContainer.addChild( strongManImage );
 
       const earthImage = new Image( backroundEarthImage, {
@@ -112,8 +112,9 @@ define( require => {
               }
             } );
 
-            const selectedGuyProperty = new Property( 'strongMan' );
+            const selectedGuyProperty = new Property( 'nobody' );
             const selectedGuyRadioButtonGroup = new RadioButtonGroup( selectedGuyProperty, [
+              { value: 'nobody', node: new Text( 'Nobody' ) },
               { value: 'strongMan', node: new Text( 'Strong Man' ) },
               { value: 'weakMan', node: new Text( 'Weak Man' ) }
             ], {
@@ -122,17 +123,22 @@ define( require => {
             } );
             this.addChild( selectedGuyRadioButtonGroup );
 
+            selectedGuyProperty.link( selectedGuy => {
+              if ( selectedGuy === 'strongMan' ) {
+                guysContainer.visible = true;
+              }
+            } );
+
             // { value: '100 pound weight', node: new Text( '100 pound weight' ) },
             // { value: '50 pound weight', node: new Text( '50 pound weight' ) },
             // { value: '25 pound weight', node: new Text( '25 pound weight' ) },
             // { value: '10 pound weight', node: new Text( '10 pound weight' ) },
-            // { value: 'strong man', node: new Text( 'strong man' ) },
-            // { value: 'averige man', node: new Text( 'avrege man' ) },
-            // { value: 'weak man', node: new Text( 'weak man' ) },
 
           }
 
           isShowingTitle = false;
+
+          //
 
 
         }
