@@ -13,6 +13,7 @@ define( require => {
   const Plane = require( 'SCENERY/nodes/Plane' );
   const Property = require( 'AXON/Property' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -61,7 +62,22 @@ define( require => {
         maxWidth: 250,
         x: 750, y: 425
       } );
-      this.addChild( strongManImage );
+      this.addChild(strongManImage);
+      const       weight10p=new Rectangle(100,100,250,15,{
+        fill :'blue',
+        centerY:strongManImage.centerY-10,
+        centerX:strongManImage.centerX
+      });
+
+      const square=new  Rectangle(0,0,15,15,{
+        fill :'blue'
+      })
+      weight10p.addChild(square)
+
+      this.addChild(weight10p) ;
+
+
+
 
       const environmentContainer = new Node();
       const guysContainer = new Node( { visible: false } );
@@ -152,9 +168,10 @@ define( require => {
       } );
       environmentContainer.addChild( moon2 );
 
-    }
 
-    // @public
+
+
+    }    // @public
     step( dt ) {
       //TODO Handle view animation here.
     }
