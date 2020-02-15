@@ -14,6 +14,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -68,11 +69,21 @@ define( require => {
         centerY:strongManImage.centerY-10,
         centerX:strongManImage.centerX
       });
-
-      const square=new  Rectangle(0,0,15,15,{
-        fill :'blue'
+      const title = new Text( '10', {
+        fontSize: 15,
+        center: this.right.center});
+      const left=new  Circle(18,{
+        fill :'blue',
+        center:weight10p.leftCenter
       })
-      weight10p.addChild(square)
+      this.addChild(left)
+      const right=new  Circle(18,{
+        fill :'blue',
+        center:weight10p.rightCenter
+      })
+      this.addChild(right)
+
+
 
       this.addChild(weight10p) ;
 
