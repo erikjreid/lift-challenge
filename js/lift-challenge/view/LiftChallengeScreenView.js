@@ -19,7 +19,7 @@ define( require => {
   const ScreenView = require( 'JOIST/ScreenView' );
   const Text = require( 'SCENERY/nodes/Text' );
 
-  const backroundEarthImage = require( 'image!LIFT_CHALLENGE/backround-earth.jpeg' )
+  const backgroundEarthImage = require( 'image!LIFT_CHALLENGE/backround-earth.jpeg' )
   const moon = require( 'image!LIFT_CHALLENGE/moon.jpg' )
   const strongman1 = require( 'image!LIFT_CHALLENGE/strong-man1.png' )
   const weakManGoodImageData = require( 'image!LIFT_CHALLENGE/weakManGood.jpg' )
@@ -33,8 +33,8 @@ define( require => {
     constructor( model, tandem ) {
 
       super();
-      const backround = new Plane( { fill: 'white' } );
-      this.addChild( backround )
+      const background = new Plane( { fill: 'yellow' } );
+      this.addChild( background )
       const resetAllButton = new ResetAllButton( {
         listener: () => {
           model.reset();
@@ -63,51 +63,65 @@ define( require => {
         maxWidth: 250,
         x: 750, y: 425
       } );
-      this.addChild(strongManImage);
-      const       weight10p=new Rectangle(100,100,250,15,{
-        fill :'blue',
-        centerY:strongManImage.centerY-10,
-        centerX:strongManImage.centerX
-      });
-      const title = new Text( '10', {
+      this.addChild( strongManImage );
+      const weightBar = new Rectangle( 100, 100, 250, 15, {
+        fill: 'blue',
+        centerY: strongManImage.centerY - 10,
+        centerX: strongManImage.centerX
+      } );
+
+      const leftBall = new Circle( 18, {
+        fill: 'blue',
+        center: weightBar.leftCenter
+      } )
+
+      const rightBall = new Circle( 18, {
+        fill: 'blue',
+        center: weightBar.rightCenter
+      } )
+
+
+      const weightLabelRight = new Text( '10', {
         fontSize: 15,
-        center: this.right.center});
-      const left=new  Circle(18,{
-        fill :'blue',
-        center:weight10p.leftCenter
-      })
-      this.addChild(left)
-      const right=new  Circle(18,{
-        fill :'blue',
-        center:weight10p.rightCenter
-      })
-      this.addChild(right)
-
-
-
-      this.addChild(weight10p) ;
-
-
-
+        fill: 'white',
+        center: rightBall.center
+      } );
+      this.addChild( weightLabelRight )
+      const weightLabelLeft = new Text( '10', {
+        fontSize: 15,
+        fill: 'white',
+        center: leftBall.center
+      } );
 
       const environmentContainer = new Node();
+      this.addChild( environmentContainer );
+
+      this.addChild( weightBar );
+      this.addChild( leftBall );
+      this.addChild( rightBall );
+      this.addChild( weightLabelRight );
+      this.addChild( weightLabelLeft );
+
       const guysContainer = new Node( { visible: false } );
       guysContainer.addChild( strongManImage );
 
-      const earthImage = new Image( backroundEarthImage, {
+      const earthNode = new Image( backgroundEarthImage, {
         scale: 1.3,
         center: this.layoutBounds.center,
         visible: false
       } );
-      environmentContainer.addChild( earthImage );
-      this.addChild( environmentContainer );
+      environmentContainer.addChild( earthNode );
+
       this.addChild( guysContainer );
+
+      // earthNode.moveToBack();
+      // environmentContainer.moveToBack();
 
       const weakmangood = new Image( weakManGoodImageData, { maxWidth: 100, x: 80, y: 425 } );
 
       this.addChild( weakmangood );
       var isShowingTitle = true;
-      backround.addInputListener( {
+      background.addInputListener( {
         down: () => {
           console.log( 'MEIOW!!!!!!' )
 
@@ -116,7 +130,7 @@ define( require => {
             this.removeChild( title );
             this.removeChild( strongManImage )
             this.removeChild( weakmangood )
-            earthImage.visible = true;
+            earthNode.visible = true;
 
             const gravityAreaProperty = new Property( 'earth' );
             const gravityAreasRadioButtonGroup = new RadioButtonGroup( gravityAreaProperty, [
@@ -130,12 +144,12 @@ define( require => {
             gravityAreaProperty.link( gravityArea => {
 
               if ( gravityArea === 'earth' ) {
-                earthImage.visible = true;
+                earthNode.visible = true;
                 moon2.visible = false;
               }
               else if ( gravityArea === 'moon' ) {
                 moon2.visible = true;
-                earthImage.visible = false;
+                earthNode.visible = false;
               }
             } );
 
@@ -178,8 +192,6 @@ define( require => {
         visible: false
       } );
       environmentContainer.addChild( moon2 );
-
-
 
 
     }    // @public
