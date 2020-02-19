@@ -33,7 +33,7 @@ define( require => {
     constructor( model, tandem ) {
 
       super();
-      const background = new Plane( { fill: 'yellow' } );
+      const background = new Plane( { fill: 'white' } );
       this.addChild( background )
       const resetAllButton = new ResetAllButton( {
         listener: () => {
@@ -96,11 +96,15 @@ define( require => {
       const environmentContainer = new Node();
       this.addChild( environmentContainer );
 
-      this.addChild( weightBar );
-      this.addChild( leftBall );
-      this.addChild( rightBall );
-      this.addChild( weightLabelRight );
-      this.addChild( weightLabelLeft );
+      const fullWeight = new Node( {
+        children: [
+          weightBar,
+          leftBall,
+          rightBall,
+          weightLabelRight,
+          weightLabelLeft ]
+      } );
+      this.addChild( fullWeight );
 
       const guysContainer = new Node( { visible: false } );
       guysContainer.addChild( strongManImage );
@@ -131,13 +135,12 @@ define( require => {
             this.removeChild( strongManImage )
             this.removeChild( weakmangood )
             earthNode.visible = true;
+            fullWeight.visible = false;
 
             const gravityAreaProperty = new Property( 'earth' );
             const gravityAreasRadioButtonGroup = new RadioButtonGroup( gravityAreaProperty, [
-              { value: 'jupiter', node: new Text( 'jupiter' ) },
               { value: 'earth', node: new Text( 'earth' ) },
-              { value: 'moon', node: new Text( 'moon' ) },
-              { value: 'space', node: new Text( 'space' ) },
+              { value: 'moon', node: new Text( 'moon' ) }
             ] );
             this.addChild( gravityAreasRadioButtonGroup );
 
@@ -165,6 +168,22 @@ define( require => {
             this.addChild( selectedGuyRadioButtonGroup );
 
             selectedGuyProperty.link( selectedGuy => {
+              if ( selectedGuy === 'strongMan' ) {
+                guysContainer.visible = true;
+              }
+            } );
+
+            const selectedWeightProperty = new Property( 'no-weight' );
+            const selectedWeightRadioButtonGroup = new RadioButtonGroup( selectedWeightProperty, [
+              { value: 'no-weight', node: new Text( 'No weight' ) },
+              { value: '10-pound-weight', node: new Text( '10 pound weight' ) }
+            ], {
+              top: selectedGuyRadioButtonGroup.bottom + 20,
+              baseColor: '#59DE28'
+            } );
+            this.addChild( selectedWeightRadioButtonGroup );
+
+            selectedWeightProperty.link( selectedGuy => {
               if ( selectedGuy === 'strongMan' ) {
                 guysContainer.visible = true;
               }
