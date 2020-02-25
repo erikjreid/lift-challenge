@@ -22,7 +22,50 @@ define( require => {
   const backgroundEarthImage = require( 'image!LIFT_CHALLENGE/backround-earth.jpeg' )
   const moon = require( 'image!LIFT_CHALLENGE/moon.jpg' )
   const strongman1 = require( 'image!LIFT_CHALLENGE/strong-man1.png' )
-  const weakManGoodImageData = require( 'image!LIFT_CHALLENGE/weakManGood.jpg' )
+  const weakManGoodImageData = require( 'image!LIFT_CHALLENGE/weakManGood.jpg' );
+
+  class WeightNode extends Node {
+    constructor( center ) {
+
+      const weightBar = new Rectangle( 100, 100, 250, 15, {
+        fill: 'blue',
+        centerX: center.x,
+        centerY: center.y - 10,
+      } );
+      const leftBall = new Circle( 18, {
+        fill: 'blue',
+        center: weightBar.leftCenter
+      } );
+
+      const rightBall = new Circle( 18, {
+        fill: 'blue',
+        center: weightBar.rightCenter
+      } );
+
+      const weightLabelRight = new Text( '10', {
+        fontSize: 15,
+        fill: 'white',
+        center: rightBall.center
+      } );
+      // this.addChild( weightLabelRight )
+      const weightLabelLeft = new Text( '10', {
+        fontSize: 15,
+        fill: 'white',
+        center: leftBall.center
+      } );
+
+      super( {
+        children: [
+          weightBar,
+          leftBall,
+          rightBall,
+          weightLabelRight,
+          weightLabelLeft ]
+
+      } );
+
+    }
+  }
 
   class LiftChallengeScreenView extends ScreenView {
 
@@ -64,46 +107,11 @@ define( require => {
         x: 750, y: 425
       } );
       this.addChild( strongManImage );
-      const weightBar = new Rectangle( 100, 100, 250, 15, {
-        fill: 'blue',
-        centerY: strongManImage.centerY - 10,
-        centerX: strongManImage.centerX
-      } );
-
-      const leftBall = new Circle( 18, {
-        fill: 'blue',
-        center: weightBar.leftCenter
-      } )
-
-      const rightBall = new Circle( 18, {
-        fill: 'blue',
-        center: weightBar.rightCenter
-      } )
-
-
-      const weightLabelRight = new Text( '10', {
-        fontSize: 15,
-        fill: 'white',
-        center: rightBall.center
-      } );
-      this.addChild( weightLabelRight )
-      const weightLabelLeft = new Text( '10', {
-        fontSize: 15,
-        fill: 'white',
-        center: leftBall.center
-      } );
 
       const environmentContainer = new Node();
       this.addChild( environmentContainer );
 
-      const fullWeight = new Node( {
-        children: [
-          weightBar,
-          leftBall,
-          rightBall,
-          weightLabelRight,
-          weightLabelLeft ]
-      } );
+      const fullWeight = new WeightNode( strongManImage.center );
       this.addChild( fullWeight );
 
       const guysContainer = new Node( { visible: false } );
