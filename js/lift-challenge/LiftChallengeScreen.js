@@ -3,35 +3,32 @@
 /**
  * @author erik johan reid
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
-  const liftChallenge = require( 'LIFT_CHALLENGE/liftChallenge' );
-  const LiftChallengeModel = require( 'LIFT_CHALLENGE/lift-challenge/model/LiftChallengeModel' );
-  const LiftChallengeScreenView = require( 'LIFT_CHALLENGE/lift-challenge/view/LiftChallengeScreenView' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import LiftChallengeModel from './LIFT_CHALLENGE/lift-challenge/model/LiftChallengeModel.js';
+import LiftChallengeScreenView from './LIFT_CHALLENGE/lift-challenge/view/LiftChallengeScreenView.js';
+import liftChallenge from './LIFT_CHALLENGE/liftChallenge.js';
 
-  class LiftChallengeScreen extends Screen {
+class LiftChallengeScreen extends Screen {
 
-    /**
-     * @param {Tandem} tandem
-     */
-    constructor( tandem ) {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
 
-      const options = {
-        backgroundColorProperty: new Property( 'white' ),
-        tandem: tandem
-      };
+    const options = {
+      backgroundColorProperty: new Property( 'white' ),
+      tandem: tandem
+    };
 
-      super(
-        () => new LiftChallengeModel( tandem.createTandem( 'model' ) ),
-        model => new LiftChallengeScreenView( model, tandem.createTandem( 'view' ) ),
-        options
-      );
-    }
+    super(
+      () => new LiftChallengeModel( tandem.createTandem( 'model' ) ),
+      model => new LiftChallengeScreenView( model, tandem.createTandem( 'view' ) ),
+      options
+    );
   }
+}
 
-  return liftChallenge.register( 'LiftChallengeScreen', LiftChallengeScreen );
-} );
+liftChallenge.register( 'LiftChallengeScreen', LiftChallengeScreen );
+export default LiftChallengeScreen;

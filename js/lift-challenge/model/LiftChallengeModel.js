@@ -3,34 +3,31 @@
 /**
  * @author erik johan reid
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const liftChallenge = require( 'LIFT_CHALLENGE/liftChallenge' );
+import liftChallenge from './LIFT_CHALLENGE/liftChallenge.js';
+
+/**
+ * @constructor
+ */
+class LiftChallengeModel {
 
   /**
-   * @constructor
+   * @param {Tandem} tandem
    */
-  class LiftChallengeModel {
-
-    /**
-     * @param {Tandem} tandem
-     */
-    constructor( tandem ) {
-      //TODO
-    }
-
-    // @public resets the model
-    reset() {
-      //TODO Reset things here.
-    }
-
-    // @public
-    step( dt ) {
-      //TODO Handle model animation here.
-    }
+  constructor( tandem ) {
+    //TODO
   }
 
-  return liftChallenge.register( 'LiftChallengeModel', LiftChallengeModel );
-} );
+  // @public resets the model
+  reset() {
+    //TODO Reset things here.
+  }
+
+  // @public
+  step( dt ) {
+    //TODO Handle model animation here.
+  }
+}
+
+liftChallenge.register( 'LiftChallengeModel', LiftChallengeModel );
+export default LiftChallengeModel;
